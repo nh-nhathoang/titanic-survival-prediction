@@ -44,10 +44,15 @@ This project builds and compares multiple classification models on the Titanic d
 
 | Model | CV Accuracy |
 |-------|-------------|
-| Logistic Regression | — |
-| Random Forest | — |
+| Logistic Regression | 80% |
+| Random Forest | 83.9% |
 
-*(fill in after running)*
+## Limitations
+
+- **Age imputation** — missing values filled with global train median (~28 years). A more accurate approach would impute per `Title` group, since `Master` passengers average ~5 years old while `Mr` averages ~30.
+- **Cabin sparsity** — ~77% of `Cabin` values are missing, so `Deck` is mostly `U` (unknown). The feature adds little signal for most passengers.
+- **Label encoding for tree models** — `LabelEncoder` imposes an arbitrary ordinal relationship on nominal categories like `Title` and `Deck`. One-hot encoding would be more principled, especially for LR.
+- **Small dataset** — 891 training samples limits how much the models can generalise. Ensemble gains over a single model are modest at this scale.
 
 ## Project Structure
 
