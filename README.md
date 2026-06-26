@@ -8,6 +8,26 @@ Kaggle getting-started competition: predict passenger survival on the Titanic us
 
 This project builds and compares multiple classification models on the Titanic dataset, with a focus on sound ML methodology — no data leakage, proper train/test splits, and cross-validated hyperparameter tuning.
 
+## Project Structure
+
+```
+├── data/
+│   ├── train.csv
+│   └── test.csv
+├── main.ipynb
+└── README.md
+```
+
+## Requirements
+
+```
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+```
+
 ## Dataset
 
 | File | Rows | Description |
@@ -30,8 +50,9 @@ This project builds and compares multiple classification models on the Titanic d
 
 ## Models
 
-- **Logistic Regression** — tuned via GridSearchCV over regularisation strength `C`
-- **Random Forest** — tuned over `n_estimators`, `max_depth`, `min_samples_split`
+- **Logistic Regression** — tuned via GridSearchCV over regularisation strength C
+- **Random Forest** — tuned over: n_estimators, max_depth, min_samples_split
+- **CatBoost** - Gradient boosting decision tree model, handles categorical features effectively. Tuned parameters: iterations, depth, learning_rate.
 
 ## Methodology Notes
 
@@ -46,6 +67,7 @@ This project builds and compares multiple classification models on the Titanic d
 |-------|-------------|
 | Logistic Regression | 80% |
 | Random Forest | 83.9% |
+| CatBoost | 84.6% |
 
 ## Limitations
 
@@ -53,23 +75,3 @@ This project builds and compares multiple classification models on the Titanic d
 - **Cabin sparsity** — ~77% of `Cabin` values are missing, so `Deck` is mostly `U` (unknown). The feature adds little signal for most passengers.
 - **Label encoding for tree models** — `LabelEncoder` imposes an arbitrary ordinal relationship on nominal categories like `Title` and `Deck`. One-hot encoding would be more principled, especially for LR.
 - **Small dataset** — 891 training samples limits how much the models can generalise. Ensemble gains over a single model are modest at this scale.
-
-## Project Structure
-
-```
-├── data/
-│   ├── train.csv
-│   └── test.csv
-├── main.ipynb
-└── README.md
-```
-
-## Requirements
-
-```
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-```
