@@ -53,13 +53,15 @@ seaborn
 - **Logistic Regression** — tuned via GridSearchCV over regularisation strength C
 - **Random Forest** — tuned over: n_estimators, max_depth, min_samples_split
 - **CatBoost** - Gradient boosting decision tree model, handles categorical features effectively. Tuned parameters: iterations, depth, learning_rate.
+- **XGBoost** — gradient boosting with extensive regularisation knobs. Tuned over `n_estimators`, `max_depth`, `learning_rate`, `subsample`, `colsample_bytree`, `gamma`, `reg_lambda`
+
 
 ## Methodology Notes
 
 - Medians for `Age` and `Fare` imputation are computed on train only and applied to test — no leakage
 - `StandardScaler` fit on train only, then applied to test
 - LabelEncoder fit on train only; unseen test labels default to `-1`
-- Tree-based models (RF) use unscaled features; scaling only applied for LR
+- Tree-based models (RF, CatBoost, XGBoost) use unscaled features; scaling only applied for LR. Tree-based models split on thresholds, while LR uses gradient descent to find weights, so features on different scales causes problems.
 
 ## Results
 
@@ -67,7 +69,8 @@ seaborn
 |-------|-------------|
 | Logistic Regression | 80% |
 | Random Forest | 83.9% |
-| CatBoost | 84.6% |
+| CatBoost | 84.8% | (not convergence yet, overfitting)
+| XGBoost | 84.6% | 
 
 ## Limitations
 
